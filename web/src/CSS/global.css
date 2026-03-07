@@ -7,8 +7,6 @@ h3, ul, li, p, button, a{
 
 ul{
     list-style: none;
-    background-color: rgba(232, 245, 233, 1);
-    padding: 50px 0 20px 20px;
 }
 
 /* padrão de link: inline-block p/ obedecer valores de margin*/
