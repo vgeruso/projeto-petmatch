@@ -11,7 +11,7 @@ export const ongTable = pgTable("tb_ong",{
     telefone: char({length: 11}).notNull(),
     whatsapp: char({length: 13}),
     email: varchar().notNull().unique(),
-    urlSite: varchar("url_site"),
+    site: varchar("site"),
     cep: char({length: 8}).notNull(),
     uf: char({length: 2}).notNull(),
     cidade: varchar().notNull(),
