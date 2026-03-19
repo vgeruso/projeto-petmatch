@@ -1,5 +1,5 @@
 import { db } from '@/database/connection';
-import { ong, pet, usuario } from '@database/schema';
+import { ong, pet, usuario } from '@/database/schema';
 import { eq } from 'drizzle-orm';
 
 export async function seed() {

@@ -1,72 +1,91 @@
 import { relations } from "drizzle-orm";
-import {
-	char,
-	date,
-	integer,
-	pgEnum,
-	pgTable,
-	serial,
-	text,
-	varchar,
-} from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, index } from "drizzle-orm/pg-core";
 
-export const statusPet = pgEnum("status_pet", ["DISPONIVEL", "ADOTADO"]);
-
-export const ongTable = pgTable("tb_ong", {
-	id: serial().primaryKey(),
-	cnpj: char({ length: 14 }).notNull().unique(),
-	razaoSocial: varchar("razao_social").notNull(),
-	nomeFantasia: varchar("nome_fantasia").notNull(),
-	telefone: char({ length: 11 }).notNull(),
-	whatsapp: char({ length: 13 }),
-	email: varchar().notNull().unique(),
-	site: varchar("site"),
-	cep: char({ length: 8 }).notNull(),
-	uf: char({ length: 2 }).notNull(),
-	cidade: varchar().notNull(),
-	bairro: varchar().notNull(),
-	logradouro: varchar().notNull(),
-	numero: integer().notNull(),
+export const user = pgTable("user", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull().unique(),
+  emailVerified: boolean("email_verified").default(false).notNull(),
+  image: text("image"),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at")
+    .$onUpdate(() => new Date())
+    .notNull(),
 });
 
-export const petTable = pgTable("tb_pet", {
-	id: serial().primaryKey(),
-	nome: varchar().notNull(),
-	especie: varchar().notNull(),
-	raca: varchar().notNull(),
-	sexo: char({ length: 1 }).notNull(),
-	porte: char({ length: 1 }).notNull(),
-	dataNascimento: date("data_nascimento").notNull(),
-	descricao: text().notNull(),
-	urlImagem: text("url_imagem").notNull(),
-	status: statusPet().notNull(),
-	ongId: integer("ong_id")
-		.notNull()
-		.references(() => ongTable.id),
-});
+export const session = pgTable(
+  "session",
+  {
+    id: text("id").primaryKey(),
+    expiresAt: timestamp("expires_at").notNull(),
+    token: text("token").notNull().unique(),
+    createdAt: timestamp("created_at").notNull(),
+    updatedAt: timestamp("updated_at")
+      .$onUpdate(() => new Date())
+      .notNull(),
+    ipAddress: text("ip_address"),
+    userAgent: text("user_agent"),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+  },
+  (table) => [index("session_userId_idx").on(table.userId)],
+);
 
-export const usuarioTable = pgTable("tb_usuario", {
-	id: serial().primaryKey(),
-	email: varchar().notNull().unique(),
-	senha: varchar().notNull(),
-	ongId: integer("ong_id")
-		.notNull()
-		.unique()
-		.references(() => ongTable.id),
-});
+export const account = pgTable(
+  "account",
+  {
+    id: text("id").primaryKey(),
+    accountId: text("account_id").notNull(),
+    providerId: text("provider_id").notNull(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    accessToken: text("access_token"),
+    refreshToken: text("refresh_token"),
+    idToken: text("id_token"),
+    accessTokenExpiresAt: timestamp("access_token_expires_at"),
+    refreshTokenExpiresAt: timestamp("refresh_token_expires_at"),
+    scope: text("scope"),
+    password: text("password"),
+    createdAt: timestamp("created_at").notNull(),
+    updatedAt: timestamp("updated_at")
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [index("account_userId_idx").on(table.userId)],
+);
 
-export const petRelations = relations(petTable, ({ one }) => ({
-	ongTable: one(ongTable, { fields: [petTable.id], references: [ongTable.id] }),
+export const verification = pgTable(
+  "verification",
+  {
+    id: text("id").primaryKey(),
+    identifier: text("identifier").notNull(),
+    value: text("value").notNull(),
+    expiresAt: timestamp("expires_at").notNull(),
+    createdAt: timestamp("created_at").notNull(),
+    updatedAt: timestamp("updated_at")
+      .$onUpdate(() => new Date())
+      .notNull(),
+  },
+  (table) => [index("verification_identifier_idx").on(table.identifier)],
+);
+
+export const userRelations = relations(user, ({ many }) => ({
+  sessions: many(session),
+  accounts: many(account),
 }));
 
-export const usuarioRelations = relations(usuarioTable, ({ one }) => ({
-	ongTable: one(ongTable, {
-		fields: [usuarioTable.id],
-		references: [ongTable.id],
-	}),
+export const sessionRelations = relations(session, ({ one }) => ({
+  user: one(user, {
+    fields: [session.userId],
+    references: [user.id],
+  }),
 }));
 
-export const ongRelations = relations(ongTable, ({ one, many }) => ({
-	petTable: many(petTable),
-	usuarioTable: one(usuarioTable),
+export const accountRelations = relations(account, ({ one }) => ({
+  user: one(user, {
+    fields: [account.userId],
+    references: [user.id],
+  }),
 }));

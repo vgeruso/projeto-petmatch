@@ -6,4 +6,9 @@ export const auth = betterAuth({
 	database: drizzleAdapter(db, {
 		provider: "pg", // or "mysql", "sqlite"
 	}),
+	advanced: {
+		database: {
+			generateId: false, // "serial" for auto-incrementing numeric IDs
+		},
+	},
 });
