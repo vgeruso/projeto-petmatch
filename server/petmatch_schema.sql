@@ -39,33 +39,14 @@ CREATE TABLE tb_ong (
 	numero integer not null
 );
 
-CREATE TABLE tb_usuario (
-	id serial primary key,
-	email varchar unique not null,
-	senha varchar not null,
-	ong_id integer unique not null
-);
+CREATE TABLE tb_usuario (id serial primary key, email varchar unique not null, senha varchar not null, ong_id integer unique not null);
 
 ALTER TABLE tb_pet add constraint fk_pet_ong foreign key (ong_id) references tb_ong (id);
 
 ALTER TABLE tb_usuario add constraint fk_usuario_ong foreign key (ong_id) references tb_ong (id);
 
 INSERT INTO
-	tb_ong (
-		cnpj,
-		razao_social,
-		nome_fantasia,
-		telefone,
-		whatsapp,
-		email,
-		cep,
-		uf,
-		cidade,
-		bairro,
-		logradouro,
-		numero,
-		site
-	)
+	tb_ong (cnpj, razao_social, nome_fantasia, telefone, whatsapp, email, cep, uf, cidade, bairro, logradouro, numero, site)
 VALUES
 	(
 		'12345678000199',
@@ -99,18 +80,7 @@ VALUES
 	);
 
 INSERT INTO
-	tb_pet (
-		nome,
-		especie,
-		raca,
-		sexo,
-		porte,
-		data_nascimento,
-		descricao,
-		url_imagem,
-		status,
-		ong_id
-	)
+	tb_pet (nome, especie, raca, sexo, porte, data_nascimento, descricao, url_imagem, status, ong_id)
 VALUES
 	(
 		'Dogão',
@@ -236,13 +206,5 @@ VALUES
 INSERT INTO
 	tb_usuario (email, senha, ong_id)
 VALUES
-	(
-		'jonas@ecovida.org.br',
-		'EssaSenhaSeraCriptografadaEmBreve',
-		1
-	),
-	(
-		'raquel@amigoanimal.org.br',
-		'EssaSenhaSeraCriptografadaEmBreve',
-		2
-	);
+	('jonas@ecovida.org.br', 'EssaSenhaSeraCriptografadaEmBreve', 1),
+	('raquel@amigoanimal.org.br', 'EssaSenhaSeraCriptografadaEmBreve', 2);
