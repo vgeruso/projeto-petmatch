@@ -1,0 +1,6 @@
+
+###  
+GET http://localhost:3000/api/pets
+
+### 
+GET http://localhost:3000/api/pets/98ec2f6e-ec0a-4b26-b270-9dab06c3f522

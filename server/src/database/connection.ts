@@ -1,5 +1,14 @@
-import { drizzle } from "drizzle-orm/bun-sql";
 import { SQL } from "bun";
+import { drizzle } from "drizzle-orm/bun-sql";
 
-const connection = new SQL("postgresql://postgres:123456@localhost:5432/db_petmatch")
-export const db = drizzle(connection, {logger: true});
+const databaseUrl = process.env.DATABASE_URL;
+
+if (!databaseUrl) {
+	throw new Error("DATABASE_URL is not defined. Please check your .env file.");
+}
+
+const connection = new SQL(databaseUrl);
+const db = drizzle(connection, { logger: true });
+
+export { db };
+export type Database = typeof db;

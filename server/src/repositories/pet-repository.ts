@@ -1,30 +1,30 @@
 import { eq, ne } from "drizzle-orm";
-import { db } from "../database/connection";
-import { ongTable, petTable } from "../database/schema";
+import { db } from "@/database/connection";
+import { ong, pet } from "@/database/schema";
 
 export const petRepository = {
-    getPets: async () => {
-        return await db
-            .select({
-                id: petTable.id,
-                nome: petTable.nome,
-                urlImagem: petTable.urlImagem,
-                cidade: ongTable.cidade,
-                estado: ongTable.uf
-            })
-            .from(petTable)
-            .innerJoin(ongTable, eq(petTable.ongId, ongTable.id))
-            .where(ne(petTable.status, "ADOTADO"));
-    },
-    getPetById: async (id: number) => {
-        const result = await db
-            .select({
-                pet: petTable,
-                ong: ongTable
-            })
-            .from(petTable)
-            .innerJoin(ongTable, eq(petTable.ongId, ongTable.id))
-            .where(eq(petTable.id, id));
-        return result[0];
-    }
+	getPets: async () => {
+		return await db
+			.select({
+				id: pet.id,
+				nome: pet.nome,
+				urlImagem: pet.urlImagem,
+				cidade: ong.cidade,
+				estado: ong.uf,
+			})
+			.from(pet)
+			.innerJoin(ong, eq(pet.ongId, ong.id))
+			.where(ne(pet.adotado, true));
+	},
+	getPetById: async (id: string) => {
+		const result = await db
+			.select({
+				pet: pet,
+				ong: ong,
+			})
+			.from(pet)
+			.innerJoin(ong, eq(pet.ongId, ong.id))
+			.where(eq(pet.id, id));
+		return result[0];
+	},
 };
