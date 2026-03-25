@@ -21,7 +21,7 @@ export async function seed() {
 	}
 
 	// Insert Users
-	const [user1, user2] = await db
+	const [user1, user2, _user3] = await db
 		.insert(user)
 		.values([
 			{
@@ -42,6 +42,15 @@ export async function seed() {
 				createdAt: now,
 				updatedAt: now,
 			},
+			{
+				id: crypto.randomUUID(),
+				name: "Roberto",
+				email: "roberto@petopia.org.br",
+				emailVerified: true,
+				image: null,
+				createdAt: now,
+				updatedAt: now,
+			}
 		])
 		.returning();
 

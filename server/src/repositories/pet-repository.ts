@@ -22,7 +22,9 @@ export const petRepository = {
 					params.sexo ? eq(pet.sexo, params.sexo) : undefined,
 					params.porte ? eq(pet.porte, params.porte) : undefined,
 					params.cidade ? ilike(ong.cidade, `%${params.cidade}%`) : undefined,
-					params.nomeOng ? ilike(ong.nomeFantasia, `%${params.nomeOng}%`) : undefined,
+					params.nomeOng
+						? ilike(ong.nomeFantasia, `%${params.nomeOng}%`)
+						: undefined,
 				),
 			);
 	},
@@ -56,10 +58,7 @@ export const petRepository = {
 		return result[0];
 	},
 	deletePet: async (id: string) => {
-		const result = await db
-			.delete(pet)
-			.where(eq(pet.id, id))
-			.returning();
+		const result = await db.delete(pet).where(eq(pet.id, id)).returning();
 		return result.length !== 0;
 	},
 };

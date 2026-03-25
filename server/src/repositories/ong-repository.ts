@@ -1,5 +1,7 @@
+import { eq } from "drizzle-orm";
 import { db } from "@/database/connection";
 import { ong } from "@/database/schema";
+import type { OngRequest } from "@/types/ong-types";
 
 export const ongRepository = {
 	getOneOng: async () => {
@@ -11,5 +13,21 @@ export const ongRepository = {
 			.from(ong)
 			.limit(1);
 		return result[0];
+	},
+	getOngById: async (id: string) => {
+		const result = await db.select().from(ong).where(eq(ong.id, id));
+		return result[0];
+	},
+	createOng: async (request: OngRequest, userId: string) => {
+		return await db
+			.insert(ong)
+			.values({
+				...request,
+				userId,
+			})
+			.returning();
+	},
+	updateOng: async (id: string, request: Partial<OngRequest>) => {
+		return await db.update(ong).set(request).where(eq(ong.id, id)).returning();
 	},
 };
