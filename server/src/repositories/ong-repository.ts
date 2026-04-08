@@ -1,4 +1,4 @@
-import { and, eq, ilike, ne } from "drizzle-orm";
+import { and, eq, ilike } from "drizzle-orm";
 import { db } from "@/database/connection";
 import { ong, user } from "@/database/schema";
 import type { OngQueryParams, OngRequest } from "@/types/ong-types";
@@ -6,15 +6,6 @@ import type { OngQueryParams, OngRequest } from "@/types/ong-types";
 export const ongRepository = {
 	getOngById: async (id: string) => {
 		return await db.select().from(ong).where(eq(ong.id, id));
-	},
-	getOngByUserId: async (userId: string) => {
-		return await db
-			.select({
-				ong: ong,
-			})
-			.from(ong)
-			.innerJoin(user, eq(ong.userId, user.id))
-			.where(eq(ong.userId, userId));
 	},
 	createOng: async (request: OngRequest, userId: string) => {
 		return await db
@@ -25,8 +16,22 @@ export const ongRepository = {
 			})
 			.returning();
 	},
-	updateOng: async (id: string, request: Partial<OngRequest>) => {
-		return await db.update(ong).set(request).where(eq(ong.id, id)).returning();
+	updateOng: async (ongId: string, request: Partial<OngRequest>) => {
+		return await db
+			.update(ong)
+			.set(request)
+			.where(eq(ong.id, ongId))
+			.returning();
+	},
+	getOngAndUserIds: async (userId: string) => {
+		return await db
+			.select({
+				ongId: ong.id,
+				userId: ong.userId,
+			})
+			.from(ong)
+			.innerJoin(user, eq(ong.userId, user.id))
+			.where(eq(ong.userId, userId));
 	},
 	getOngs: async (params: OngQueryParams) => {
 		return await db

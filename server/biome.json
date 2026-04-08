@@ -7,7 +7,17 @@
 	},
 	"files": {
 		"ignoreUnknown": false,
-		"includes": ["**", "!.agents", "!biome.json", "!.vscode", "!.devcontainer", "!node_modules", "!dist", "!build", "!coverage"]
+		"includes": [
+			"**",
+			"!.agents",
+			"!biome.json",
+			"!.vscode",
+			"!.devcontainer",
+			"!node_modules",
+			"!dist",
+			"!build",
+			"!coverage"
+		]
 	},
 	"formatter": {
 		"enabled": true,
