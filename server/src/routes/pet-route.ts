@@ -16,9 +16,9 @@ const queryParamsParse = {
 	nomeOng: t.Optional(t.String()),
 };
 const bodyParse = {
-	nome: t.String(),
+	nome: t.String({ maxLength: 255 }),
 	especie: t.Union(especieParse),
-	raca: t.String(),
+	raca: t.String({ maxLength: 100 }),
 	sexo: t.Union(sexoParse),
 	porte: t.Union(porteParse),
 	dataNascimento: t.Date(),
@@ -47,7 +47,8 @@ const petRoutes = new Elysia({ prefix: "/pets", tags: ["Pets"] })
 	)
 	.put(
 		"/:id",
-		async ({ params: { id }, body }) => petService.updatePet(id, body),
+		async ({ params: { id }, body, user }) =>
+			petService.updatePet(id, body, user.id),
 		{
 			params: t.Object({ id: t.String({ format: "uuid" }) }),
 			body: t.Partial(t.Object(bodyParse)),
@@ -56,8 +57,8 @@ const petRoutes = new Elysia({ prefix: "/pets", tags: ["Pets"] })
 	)
 	.delete(
 		"/:id",
-		async ({ params: { id }, status }) => {
-			await petService.deletePet(id);
+		async ({ params: { id }, status, user }) => {
+			await petService.deletePet(id, user.id);
 			return status(204);
 		},
 		{
