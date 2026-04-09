@@ -1,14 +1,20 @@
-import './App.css'
+import "./App.css";
+import PreviewPetList from "./components/PreviewPetList";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 function App() {
-
   return (
-    <div className="h-screen flex items-center justify-center bg-black">
-      <h1 className="text-white text-4xl">
-        Projeto funcionando 🚀
-      </h1>
-    </div>
-  )
+    <main>
+      <PreviewPetList/>
+      <About />
+      <Contact />
+      <Footer />
+    </main>
+  );
 }
 
-export default App
+export default App;
+
+
