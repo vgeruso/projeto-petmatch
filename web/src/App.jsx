@@ -1,24 +1,20 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Footer from './components/Footer';
-import Login from './pages/Login';
+import "./App.css";
+import PreviewPetList from "./components/PreviewPetList";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen flex flex-col bg-white w-full overflow-x-hidden">
-        <main className="flex-grow flex items-center justify-center w-full">
-          <Routes>
-            {/* Rota da Página de Login */}
-            <Route path="/login" element={<Login />} />
-            
-            {/* Rota da Página Principal (Pode estar vazia por enquanto) */}
-            <Route path="/" element={<div className="text-2xl font-bold p-10">Página Principal em Construção... 🐾</div>} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
+    <main>
+      <PreviewPetList/>
+      <About />
+      <Contact />
+      <Footer />
+    </main>
   );
 }
 
 export default App;
+
+
