@@ -230,4 +230,4 @@ Nosso obrigado vai para essas pessoas incríveis:
 <!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
-Este projeto segue a especificacao all-contributors.
+Este projeto segue a especificação all-contributors.
