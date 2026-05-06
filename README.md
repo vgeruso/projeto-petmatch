@@ -198,6 +198,7 @@ git push origin feature/nome-da-feature
 - **Evelyn Vitoria Salomao (EvelynVitoria-Salomao)** - _Developer & Contributor of PetMatch_ - [GitHub](https://github.com/EvelynVitoria-Salomao)
 - **Wescley Henrique (WescleyHenrique)** - _Developer & Contributor of PetMatch_ - [GitHub](https://github.com/WescleyHenrique)
 - **Gustavo Lima (Gustavo08Lima)** - _Developer & Contributor of PetMatch_ - [GitHub](https://github.com/Gustavo08Lima)
+- **Victor Geruso Gomes (vgeruso)** - _Developer & Contributor of PetMatch_ - [GitHub](https://github.com/vgeruso)
 
 <p align="center">Made with 🐾</p>
 
@@ -219,6 +220,7 @@ Nosso obrigado vai para essas pessoas incríveis:
 		<td align="center"><a href="https://github.com/EvelynVitoria-Salomao"><img src="https://github.com/EvelynVitoria-Salomao.png?size=100" width="100px;" alt="EvelynVitoria-Salomao"/><br /><sub><b>EvelynVitoria-Salomao</b></sub></a><br /><a href="https://github.com/EvelynVitoria-Salomao/projeto-petmatch/commits?author=EvelynVitoria-Salomao" title="Code">💻</a></td>
 		<td align="center"><a href="https://github.com/WescleyHenrique"><img src="https://github.com/WescleyHenrique.png?size=100" width="100px;" alt="WescleyHenrique"/><br /><sub><b>WescleyHenrique</b></sub></a><br /><a href="https://github.com/EvelynVitoria-Salomao/projeto-petmatch/commits?author=WescleyHenrique" title="Code">💻</a></td>
 		<td align="center"><a href="https://github.com/Gustavo08Lima"><img src="https://github.com/Gustavo08Lima.png?size=100" width="100px;" alt="Gustavo08Lima"/><br /><sub><b>Gustavo08Lima</b></sub></a><br /><a href="https://github.com/EvelynVitoria-Salomao/projeto-petmatch/commits?author=Gustavo08Lima" title="Code">💻</a></td>
+		<td align="center"><a href="https://github.com/vgeruso"><img src="https://github.com/vgeruso.png?size=100" width="100px;" alt="vgeruso"/><br /><sub><b>vgeruso</b></sub></a><br /><a href="https://github.com/EvelynVitoria-Salomao/projeto-petmatch/commits?author=vgeruso" title="Code">💻</a></td>
 	</tr>
 </table>
 
