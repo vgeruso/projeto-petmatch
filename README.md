@@ -81,7 +81,7 @@ cd projeto-petmatch
 cp .env.example .env
 ```
 
-verificar as variáveis de ambiente no arquivo `.env` e ajustá-las conforme necessário.
+Verificar as variáveis de ambiente no arquivo `.env` e ajustá-las conforme necessário. No fluxo com **todos os serviços no Compose**, mantenha em `DATABASE_URL` o host **`database`** (nome do serviço no `docker-compose.yml`); `localhost` só funciona quando o backend roda na sua máquina e não dentro do container.
 
 ### 3. Subir todo o ambiente via docker compose
 

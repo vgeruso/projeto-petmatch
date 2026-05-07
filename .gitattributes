@@ -1,0 +1,4 @@
+* text=auto
+
+# Scripts shell no Linux/Docker precisam de LF; CRLF quebra o shebang (ex.: init-db.sh).
+*.sh text eol=lf
